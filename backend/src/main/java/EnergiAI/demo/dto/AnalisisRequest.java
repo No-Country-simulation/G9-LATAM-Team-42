@@ -1,19 +1,38 @@
-package EnergiaAI.demo.dto;
+package EnergiAI.demo.dto;
 
-public class AnalisRequest {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
+/**
+ * DTO de entrada para la evaluación de eficiencia energética.
+ */
+public class AnalisisRequest {
+
+    @NotNull(message = "El consumo en kWh es obligatorio")
+    @Positive(message = "El consumo debe ser un valor positivo")
     private Double consumo_kwh;
+
+    @NotBlank(message = "El uso en horario pico es obligatorio (SI/NO)")
     private String uso_horario_pico;
+
+    @NotNull(message = "La cantidad de equipos es obligatoria")
+    @Positive(message = "La cantidad de equipos debe ser mayor a cero")
     private Integer cantidad_equipos;
+
+    @NotBlank(message = "El tipo de inmueble es obligatorio")
     private String tipo_inmueble;
+
+    @NotNull(message = "Las horas de alto consumo son obligatorias")
+    @Positive(message = "Las horas deben ser un número positivo")
     private Integer horas_alto_consumo;
 
     // Constructor vacío
-    public AnalisRequest() {
+    public AnalisisRequest() {
     }
 
     // Constructor con parámetros
-    public AnalisRequest(Double consumo_kwh, String uso_horario_pico, Integer cantidad_equipos, String tipo_inmueble, Integer horas_alto_consumo) {
+    public AnalisisRequest(Double consumo_kwh, String uso_horario_pico, Integer cantidad_equipos, String tipo_inmueble, Integer horas_alto_consumo) {
         this.consumo_kwh = consumo_kwh;
         this.uso_horario_pico = uso_horario_pico;
         this.cantidad_equipos = cantidad_equipos;
