@@ -13,8 +13,8 @@ public class AnalisisRequest {
     @Positive(message = "El consumo debe ser un valor positivo")
     private Double consumo_kwh;
 
-    @NotBlank(message = "El uso en horario pico es obligatorio (SI/NO)")
-    private String uso_horario_pico;
+    @NotNull(message = "El uso en horario pico es obligatorio (SI/NO)")
+    private Boolean uso_horario_pico;
 
     @NotNull(message = "La cantidad de equipos es obligatoria")
     @Positive(message = "La cantidad de equipos debe ser mayor a cero")
@@ -32,7 +32,7 @@ public class AnalisisRequest {
     }
 
     // Constructor con parámetros
-    public AnalisisRequest(Double consumo_kwh, String uso_horario_pico, Integer cantidad_equipos, String tipo_inmueble, Integer horas_alto_consumo) {
+    public AnalisisRequest(Double consumo_kwh, Boolean uso_horario_pico, Integer cantidad_equipos, String tipo_inmueble, Integer horas_alto_consumo) {
         this.consumo_kwh = consumo_kwh;
         this.uso_horario_pico = uso_horario_pico;
         this.cantidad_equipos = cantidad_equipos;
@@ -49,11 +49,11 @@ public class AnalisisRequest {
         this.consumo_kwh = consumo_kwh;
     }
 
-    public String getUso_horario_pico() {
+    public Boolean getUso_horario_pico() {
         return uso_horario_pico;
     }
 
-    public void setUso_horario_pico(String uso_horario_pico) {
+    public void setUso_horario_pico(Boolean uso_horario_pico) {
         this.uso_horario_pico = uso_horario_pico;
     }
 
