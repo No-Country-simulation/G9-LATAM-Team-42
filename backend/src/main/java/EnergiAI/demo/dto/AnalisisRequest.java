@@ -13,7 +13,7 @@ public class AnalisisRequest {
     @Positive(message = "El consumo debe ser un valor positivo")
     private Double consumo_kwh;
 
-    @NotNull(message = "El uso en horario pico es obligatorio (SI/NO)")
+    @NotNull(message = "El uso en horario pico es obligatorio")
     private Boolean uso_horario_pico;
 
     @NotNull(message = "La cantidad de equipos es obligatoria")
