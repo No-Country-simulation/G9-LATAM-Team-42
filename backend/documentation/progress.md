@@ -16,11 +16,17 @@ Registro de los hitos y cambios realizados en el desarrollo de EnergiAI.
 - [x] Implementación del endpoint `GET /analisis-energetico/historial`.
 - [x] Configuración de base de datos H2 en `application.properties` y dependencias en `pom.xml`.
 
-### Fase 3: Manejo de Errores y Seguridad
+### Fase 3: Desacoplamiento de Ciencia de Datos
+- [x] Implementación del paquete `EnergiAI.demo.client`.
+- [x] Implementación de interfaz `DataScienceClient`.
+- [x] Implementación de `MockDataScienceClient` (dev) y `RestDataScienceClient` (prod).
+- [x] Actualización de `AnalisisService` para usar `DataScienceClient`.
+
+### Fase 4: Manejo de Errores y Seguridad
 - [x] Implementación de `GlobalExceptionHandler` para manejo centralizado de excepciones y validaciones.
 - [x] Implementación de configuración de seguridad (`securityConfig`) con autenticación básica.
 
 ## Siguientes Pasos
+- [ ] Migrar de H2 a Oracle Autonomous Database (OCI Always Free).
+- [ ] Integración de modelo de IA (Groq o Kimi) para el procesamiento y generación de recomendaciones basadas en el modelo de ciencia de datos.
 - [ ] Implementar pruebas unitarias y de integración.
-- [ ] Mejorar la configuración de seguridad (ej. migrar a JWT).
-- [ ] Migrar de H2 a una base de datos de producción (como PostgreSQL).

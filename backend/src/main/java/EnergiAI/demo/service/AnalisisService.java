@@ -1,7 +1,9 @@
 package EnergiAI.demo.service;
 
+import EnergiAI.demo.client.DataScienceClient;
 import EnergiAI.demo.dto.AnalisisRequest;
 import EnergiAI.demo.dto.AnalisisResponse;
+import EnergiAI.demo.dto.PrediccionResponse;
 import EnergiAI.demo.model.AnalisisEnergetico;
 import EnergiAI.demo.repository.AnalisisEnergeticoRepository;
 import org.springframework.stereotype.Service;
@@ -12,96 +14,42 @@ import java.util.List;
 public class AnalisisService {
 
     private final AnalisisEnergeticoRepository repository;
+    private final DataScienceClient dataScienceClient;
 
-    public AnalisisService(AnalisisEnergeticoRepository repository) {
+    public AnalisisService(AnalisisEnergeticoRepository repository, DataScienceClient dataScienceClient) {
         this.repository = repository;
+        this.dataScienceClient = dataScienceClient;
     }
 
     public AnalisisResponse procesarAnalisisEnergetico(AnalisisRequest request) {
 
-//        Obtener datos del dto.
-        double consumo = request.getConsumo_kwh();
-        boolean horarioPico = request.getUso_horario_pico();
-        int cantidadEquipos = request.getCantidad_equipos();
-        String tipoInmueble = request.getTipo_inmueble();
-        int horasAltoConsumo = request.getHoras_alto_consumo();
+        // 1. Delegar el análisis de datos (Ya sea al Mock o a la API Python)
+        PrediccionResponse prediccion = dataScienceClient.obtenerPrediccion(request);
 
-//        Establecer puntaje en funcion del consumo.
-        double score = consumo / 10;
+        // 2. Calcular la estimación financiera (Lógica de negocio propia del backend)
+        double costo_estimado = request.getConsumo_kwh() * 0.75;
 
-//        Asignar puntaje si el consumo se ve afectado por la hora pico.
-        if (horarioPico) {
-            score += 8;
-        }
-
-//        Calcular puntaje por cantidad de equipos.
-        score += (cantidadEquipos * 0.5);
-
-//        Asignar puntaje por tipo de inmueble.
-        switch (tipoInmueble.toLowerCase()) {
-            case "casa":
-                score += 10;
-                break;
-            case "oficina":
-                score += 7;
-                break;
-            case "comercio":
-                score += 4;
-                break;
-            default:
-                score += 6;
-                break;
-        }
-//        Calcular el puntaje en base a las horas de alto consumo.
-        score += horasAltoConsumo * 0.8;
-
-//        Se declaran variables para generar la respuesta de la peticion.
-        String categoria = null;
-        double probabilidad = 0;
-        List<String> recomendaciones = List.of("");
-        double costo_estimado = 0;
-
-//        Clasificacion de la eficiencia en base al puntaje calculado.
-        if (score >= 70.01) {
-            categoria = "Ineficiente";
-/* test            probabilidad = 0.87;*/
-            probabilidad = score;
-            recomendaciones = List.of(
-                    "Reducir el uso de equipos durante los horarios pico",
-                    "Evaluar equipos con alto consumo energético",
-                    "Distribuir las actividades de mayor consumo a lo largo del día"
-            );
-        } else if (score < 70.01 && score >= 55.01) {
-            categoria = "Moderado";
-/*  test          probabilidad = 0.75; */
-            probabilidad = score;
-            recomendaciones = List.of("Apagar las pantallas mientras no estan en uso.");
-        } else if (score < 55.01) {
-            categoria = "Eficiente";
-            probabilidad = score;
-
-/*          Se remplaza la probabilidad con la intencion de hacer seguimiento.
-test          probabilidad = 0.70;*/
-        }
-
-//      Calculo del costo en funcion del consumo ingresado.
-        costo_estimado = consumo * 0.75;
-
-        // Guardar en base de datos
+        // 3. Guardar en base de datos
         AnalisisEnergetico analisis = AnalisisEnergetico.builder()
-                .consumoKwh(consumo)
-                .usoHorarioPico(horarioPico)
-                .cantidadEquipos(cantidadEquipos)
-                .tipoInmueble(tipoInmueble)
-                .horasAltoConsumo(horasAltoConsumo)
-                .categoria(categoria)
-                .probabilidad(probabilidad)
+                .consumoKwh(request.getConsumo_kwh())
+                .usoHorarioPico(request.getUso_horario_pico())
+                .cantidadEquipos(request.getCantidad_equipos())
+                .tipoInmueble(request.getTipo_inmueble())
+                .horasAltoConsumo(request.getHoras_alto_consumo())
+                .categoria(prediccion.getCategoria())
+                .probabilidad(prediccion.getProbabilidad())
                 .costoEstimadoMensual(costo_estimado)
-                .recomendaciones(String.join(", ", recomendaciones))
+                .recomendaciones(String.join(", ", prediccion.getRecomendaciones()))
                 .build();
         repository.save(analisis);
 
-        return new AnalisisResponse(categoria, probabilidad, recomendaciones, costo_estimado );
+        // 4. Ensamblar la respuesta final
+        return new AnalisisResponse(
+                prediccion.getCategoria(),
+                prediccion.getProbabilidad(),
+                prediccion.getRecomendaciones(),
+                costo_estimado
+        );
     }
 
     public List<AnalisisEnergetico> obtenerHistorial() {
