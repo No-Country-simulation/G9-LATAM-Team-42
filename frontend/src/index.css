@@ -1,0 +1,188 @@
+/* ─────────────────────────────────────────────────────────────
+   JouleAI (EnergiAI) — Design tokens
+   Tema claro y limpio, fondo blanco/gris suave, tarjetas blancas
+   con sombra leve. Colores de estado en tonos pastel con borde.
+   ───────────────────────────────────────────────────────────── */
+:root {
+  --bg: #f8fafc;
+  --bg-raised: #ffffff;
+  --surface: #ffffff;
+  --surface-hover: #f1f5f9;
+  --border: #e2e8f0;
+  --border-soft: #eef2f6;
+
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --text-faint: #94a3b8;
+
+  --amber: #f59e0b;
+  --amber-soft: #d97706;
+  --mint: #22c55e;
+  --mint-soft: #16a34a;
+  --yellow: #f59e0b;
+  --coral: #ef4444;
+
+  --eficiente: #16a34a;
+  --eficiente-bg: #f0fdf4;
+  --eficiente-border: #bbf7d0;
+  --moderado: #d97706;
+  --moderado-bg: #fffbeb;
+  --moderado-border: #fde68a;
+  --ineficiente: #dc2626;
+  --ineficiente-bg: #fef2f2;
+  --ineficiente-border: #fecaca;
+
+  --font-display: "Plus Jakarta Sans", "Inter", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "DM Mono", ui-monospace, monospace;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+
+  --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 24px -12px rgba(15, 23, 42, 0.10);
+  color-scheme: light;
+}
+
+/* ── Tema Noche (alterno) ──────────────────────────────────────
+   Fondo tipo subestación nocturna con acento ámbar. Se activa con
+   [data-theme="night"] en <html>, controlado por el toggle día/noche. */
+:root[data-theme="night"] {
+  --bg: #0d1917;
+  --bg-raised: #122624;
+  --surface: #17302d;
+  --surface-hover: #1c3a36;
+  --border: #24433e;
+  --border-soft: #1c332f;
+
+  --text: #eaf4f1;
+  --text-muted: #9fb8b2;
+  --text-faint: #6c8580;
+
+  --amber: #ff8a3d;
+  --amber-soft: #ffb066;
+  --mint: #3ddc97;
+  --mint-soft: #8ff0c4;
+  --yellow: #ffc857;
+  --coral: #ff5d5d;
+
+  --eficiente: #3ddc97;
+  --eficiente-bg: rgba(61, 220, 151, 0.12);
+  --eficiente-border: rgba(61, 220, 151, 0.4);
+  --moderado: #ffc857;
+  --moderado-bg: rgba(255, 200, 87, 0.12);
+  --moderado-border: rgba(255, 200, 87, 0.4);
+  --ineficiente: #ff5d5d;
+  --ineficiente-bg: rgba(255, 93, 93, 0.12);
+  --ineficiente-border: rgba(255, 93, 93, 0.4);
+
+  --font-display: "Space Grotesk", "Inter", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 12px 30px -14px rgba(0, 0, 0, 0.55);
+  color-scheme: dark;
+}
+
+:root[data-theme="night"] body {
+  background:
+    radial-gradient(1100px 620px at 88% -10%, rgba(255, 138, 61, 0.10), transparent 60%),
+    radial-gradient(900px 500px at -10% 20%, rgba(61, 220, 151, 0.07), transparent 55%),
+    var(--bg);
+}
+
+:root[data-theme="night"] input,
+:root[data-theme="night"] select,
+:root[data-theme="night"] textarea {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background:
+    radial-gradient(1000px 560px at 90% -6%, rgba(245, 158, 11, 0.30), transparent 62%),
+    radial-gradient(760px 460px at -6% 12%, rgba(217, 119, 6, 0.20), transparent 58%),
+    radial-gradient(680px 420px at 50% 105%, rgba(34, 197, 94, 0.14), transparent 62%),
+    linear-gradient(180deg, rgba(245, 158, 11, 0.06) 0%, transparent 22%),
+    var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+}
+
+input,
+select,
+textarea {
+  font-family: inherit;
+  color-scheme: light;
+}
+
+a {
+  color: inherit;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #cbd5e1;
+}

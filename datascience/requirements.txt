@@ -1,0 +1,25 @@
+# Dependencias del Servicio de Inferencia ML - EnergiAI
+# =====================================================
+# Modelo: Decision Tree Pipeline (modelo_arbol_decision_pipeline.pkl)
+
+# Framework web
+flask==3.1.1
+
+# Serialización del modelo
+joblib==1.4.2
+
+# Computación numérica
+numpy==2.2.6
+
+# Machine Learning (Decision Tree Pipeline + preprocessing)
+scikit-learn==1.6.1
+
+# Análisis de datos (usado en el pipeline de preprocesamiento)
+pandas==2.2.3
+
+# OCI SDK (solo para producción - carga del modelo desde Object Storage)
+oci==2.149.1
+
+# Testing
+hypothesis==6.131.15
+pytest==8.4.0

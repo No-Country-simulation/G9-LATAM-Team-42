@@ -1,0 +1,115 @@
+{
+  "info": {
+    "_postman_id": "0f68fdd4-7ad3-4439-8f25-8f0144d0b0f9",
+    "name": "EnergIA",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "49771597",
+    "_collection_link": "https://go.postman.co/collection/49771597-0f68fdd4-7ad3-4439-8f25-8f0144d0b0f9?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Caso 4: Obtener Historial de Análisis",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/analisis-energetico/historial",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "analisis-energetico",
+            "historial"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Caso 3: Validación Errónea",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"consumo_kwh\": -100.0,\r\n  \"uso_horario_pico\": null,\r\n  \"cantidad_equipos\": 0,\r\n  \"tipo_inmueble\": \"\",\r\n  \"horas_alto_consumo\": -5\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/analisis-energetico",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "analisis-energetico"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Caso 2: Consumo Ineficiente",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"consumo_kwh\": 650.0,\r\n  \"uso_horario_pico\": true,\r\n  \"cantidad_equipos\": 20,\r\n  \"tipo_inmueble\": \"comercio\",\r\n  \"horas_alto_consumo\": 10\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/analisis-energetico",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "analisis-energetico"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Caso 1: Consumo Eficiente",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"consumo_kwh\": 200.0,\r\n  \"uso_horario_pico\": false,\r\n  \"cantidad_equipos\": 6,\r\n  \"tipo_inmueble\": \"casa\",\r\n  \"horas_alto_consumo\": 3\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/analisis-energetico",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "analisis-energetico"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
